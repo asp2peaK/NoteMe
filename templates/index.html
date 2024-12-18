@@ -1,251 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoteMe</title>
-    <style>
-        :root[data-theme="light"] {
-            --bg-color: #f5f5f5;
-            --text-color: #333;
-            --card-bg: white;
-            --border-color: #ddd;
-            --primary-color: #4CAF50;
-            --secondary-color: #888;
-            --input-bg: white;
-        }
-        
-        :root[data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --text-color: #ffffff;
-            --card-bg: #2d2d2d;
-            --border-color: #404040;
-            --primary-color: #66bb6a;
-            --secondary-color: #666;
-            --input-bg: #2d2d2d;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.5;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 500;
-        }
-
-        .header-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--input-bg);
-            color: var(--text-color);
-            font-size: 14px;
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .note-form {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .controls {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        select {
-            padding: 6px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--input-bg);
-            color: var(--text-color);
-            font-size: 13px;
-        }
-
-        .note {
-            background: var(--card-bg);
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            position: relative;
-        }
-
-        .note.archived {
-            opacity: 0.7;
-        }
-
-        .note h3 {
-            margin: 0 0 10px 0;
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        .note-buttons {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            gap: 4px;
-        }
-
-        .note-buttons button {
-            padding: 4px 8px;
-            font-size: 12px;
-        }
-
-        .note-buttons button[title="Удалить"] {
-            background: #e57373;
-        }
-
-        .note-buttons button[title="Удалить"]:hover {
-            background: #ef5350;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 2px 6px;
-            background: var(--secondary-color);
-            color: var(--text-color);
-            border-radius: 4px;
-            font-size: 11px;
-            margin-right: 4px;
-            margin-bottom: 4px;
-            opacity: 0.7;
-        }
-
-        .category {
-            color: var(--secondary-color);
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
-
-        .markdown-help {
-            color: var(--secondary-color);
-            font-size: 12px;
-            margin-top: 8px;
-        }
-
-        .note-content {
-            margin: 12px 0;
-            font-size: 14px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .note-meta {
-            font-size: 11px;
-            color: var(--secondary-color);
-            margin-top: 8px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            position: relative;
-            background: var(--card-bg);
-            margin: 40px auto;
-            padding: 20px;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        .modal-content input,
-        .modal-content textarea {
-            margin-bottom: 15px;
-        }
-
-        .close {
-            position: absolute;
-            right: 15px;
-            top: 10px;
-            font-size: 24px;
-            font-weight: 300;
-            cursor: pointer;
-            color: var(--secondary-color);
-            line-height: 1;
-            padding: 0 5px;
-        }
-
-        .close:hover {
-            color: var(--text-color);
-        }
-
-        .import-form {
-            display: none;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
-            
-            .search-box {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="header">
@@ -261,25 +20,25 @@
     
     <div class="note-form">
         <form action="{{ url_for('add_note') }}" method="post">
-            <input type="text" name="title" placeholder="Заголовок" required>
-            <textarea name="content" placeholder="Текст заметки (поддерживается Markdown и #теги)" required></textarea>
-            <input type="text" name="category" placeholder="Категория" list="categories">
+            <input type="text" name="title" placeholder="Title" required>
+            <textarea name="content" placeholder="Note content (supports Markdown and #tags)" required></textarea>
+            <input type="text" name="category" placeholder="Category" list="categories">
             <datalist id="categories">
                 {% for category in categories %}
                 <option value="{{ category }}">
                 {% endfor %}
             </datalist>
             <div class="markdown-help">
-                **жирный**, *курсив*, # Заголовок, - список
+                **bold**, *italic*, # Heading, - list
             </div>
-            <button type="submit">Сохранить</button>
+            <button type="submit">Save</button>
         </form>
     </div>
 
     <div class="controls">
-        <input type="text" class="search-box" id="searchInput" placeholder="Поиск...">
+        <input type="text" class="search-box" id="searchInput" placeholder="Search...">
         <select id="categoryFilter">
-            <option value="">Все категории</option>
+            <option value="">All categories</option>
             {% for category in categories %}
             <option value="{{ category }}" {% if category == current_category %}selected{% endif %}>
                 {{ category }}
@@ -287,7 +46,7 @@
             {% endfor %}
         </select>
         <select id="tagFilter">
-            <option value="">Все теги</option>
+            <option value="">All tags</option>
             {% for tag in tags %}
             <option value="{{ tag }}" {% if tag == current_tag %}selected{% endif %}>
                 #{{ tag }}
@@ -315,7 +74,7 @@
         <div class="note-meta">
             {{ note.created_at }}
             {% if note.get('updated_at') %}
-            · изменено: {{ note.updated_at }}
+            · modified: {{ note.updated_at }}
             {% endif %}
         </div>
         <div class="note-buttons">
@@ -324,14 +83,14 @@
                     data-title="{{ note.title|tojson|safe }}"
                     data-content="{{ note.content|tojson|safe }}"
                     data-category="{{ note.category|tojson|safe }}"
-                    title="Редактировать">✎</button>
+                    title="Edit">✎</button>
             <form action="{{ url_for('toggle_archive', note_id=note.id) }}" method="post" style="display: inline;">
-                <button type="submit" title="{{ 'Разархивировать' if note.get('archived', False) else 'Архивировать' }}">
+                <button type="submit" title="{{ 'Unarchive' if note.get('archived', False) else 'Archive' }}">
                     {{ '📤' if note.get('archived', False) else '📥' }}
                 </button>
             </form>
             <form action="{{ url_for('delete_note', note_id=note.id) }}" method="post" style="display: inline;">
-                <button type="submit" title="Удалить">✖</button>
+                <button type="submit" title="Delete">✖</button>
             </form>
         </div>
     </div>
@@ -345,9 +104,9 @@
                 <textarea name="content" id="editContent" required></textarea>
                 <input type="text" name="category" id="editCategory" list="categories">
                 <div class="markdown-help">
-                    **жирный**, *курсив*, # Заголовок, - список
+                    **bold**, *italic*, # Heading, - list
                 </div>
-                <button type="submit">Сохранить</button>
+                <button type="submit">Save</button>
             </form>
         </div>
     </div>
@@ -357,91 +116,6 @@
     <form id="importForm" action="{{ url_for('import_notes') }}" method="post" 
           enctype="multipart/form-data"></form>
 
-    <script>
-        // Тема
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeToggle = document.getElementById('themeToggle');
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            html.setAttribute('data-theme', newTheme);
-            themeToggle.textContent = newTheme === 'light' ? '🌙' : '☀️';
-            localStorage.setItem('theme', newTheme);
-        }
-
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        document.getElementById('themeToggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
-
-        // Редактирование
-        const editModal = document.getElementById('editModal');
-        const editForm = document.getElementById('editForm');
-        const editTitle = document.getElementById('editTitle');
-        const editContent = document.getElementById('editContent');
-        const editCategory = document.getElementById('editCategory');
-
-        function editNote(button) {
-            editModal.style.display = 'block';
-            editForm.action = `/edit_note/${button.dataset.id}`;
-            editTitle.value = JSON.parse(button.dataset.title);
-            editContent.value = JSON.parse(button.dataset.content);
-            editCategory.value = JSON.parse(button.dataset.category);
-        }
-
-        const closeBtn = document.querySelector('.close');
-        closeBtn.onclick = function() {
-            editModal.style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            if (event.target == editModal) {
-                editModal.style.display = 'none';
-            }
-        }
-
-        // Фильтрация и сортировка
-        let currentSort = 'desc';
-        let showArchived = document.getElementById('archiveButton').dataset.archived === 'true';
-        
-        function toggleSort() {
-            currentSort = currentSort === 'desc' ? 'asc' : 'desc';
-            const sortButton = document.getElementById('sortButton');
-            sortButton.textContent = currentSort === 'desc' ? '⬇' : '⬆';
-            updateURL();
-        }
-
-        function toggleArchived() {
-            showArchived = !showArchived;
-            updateURL();
-        }
-
-        const searchInput = document.getElementById('searchInput');
-        const categoryFilter = document.getElementById('categoryFilter');
-        const tagFilter = document.getElementById('tagFilter');
-        let searchTimeout;
-
-        searchInput.addEventListener('input', function() {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(updateURL, 300);
-        });
-
-        categoryFilter.addEventListener('change', updateURL);
-        tagFilter.addEventListener('change', updateURL);
-
-        function updateURL() {
-            const searchQuery = searchInput.value;
-            const category = categoryFilter.value;
-            const tag = tagFilter.value;
-            const newURL = `${window.location.pathname}?search=${encodeURIComponent(searchQuery)}&sort=${currentSort}&category=${encodeURIComponent(category)}&tag=${encodeURIComponent(tag)}&archived=${showArchived}`;
-            window.location.href = newURL;
-        }
-
-        // Инициализация значений из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        currentSort = urlParams.get('sort') || 'desc';
-        document.getElementById('sortButton').textContent = currentSort === 'desc' ? '⬇' : '⬆';
-        searchInput.value = urlParams.get('search') || '';
-    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
