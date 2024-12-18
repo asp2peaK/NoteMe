@@ -57,3 +57,5 @@ This is a development version. For production use:
 ## License
 
 MIT License. Feel free to use and modify as you wish!
+
+P.S. This is a personal learning project created with enthusiasm and curiosity. While I've tried to follow best practices, there might be bugs or areas for improvement. The code could probably be structured or implemented differently - feel free to experiment and modify it to suit your needs! If you find any issues or have suggestions for improvements, they're welcome. Remember, sometimes the best way to learn is by trying different approaches and making mistakes along the way. 
