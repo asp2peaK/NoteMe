@@ -7,7 +7,6 @@ import io
 
 app = Flask(__name__)
 
-# Загрузка заметок из файла
 def load_notes():
     try:
         with open('notes.json', 'r', encoding='utf-8') as f:
@@ -15,16 +14,13 @@ def load_notes():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
-# Сохранение заметок в файл
 def save_notes(notes):
     with open('notes.json', 'w', encoding='utf-8') as f:
         json.dump(notes, f, ensure_ascii=False, indent=2)
 
-# Извлечение тегов из текста
 def extract_tags(content):
     return re.findall(r'#(\w+)', content)
 
-# Форматирование даты
 def format_datetime(dt_str):
     dt = datetime.fromisoformat(dt_str)
     return dt.strftime("%d.%m.%Y %H:%M")
@@ -42,7 +38,6 @@ def index():
     tag = request.args.get('tag', '')
     show_archived = request.args.get('archived', 'false').lower() == 'true'
 
-    # Фильтрация
     if search:
         notes = [n for n in notes if search in n['title'].lower() or search in n['content'].lower()]
     if category:
@@ -50,20 +45,16 @@ def index():
     if tag:
         notes = [n for n in notes if tag in n.get('tags', [])]
     
-    # Фильтрация по архиву
     notes = [n for n in notes if n.get('archived', False) == show_archived]
 
-    # Сортировка
     notes.sort(key=lambda x: x['created_at'], reverse=(sort == 'desc'))
 
-    # Подготовка данных для отображения
-    all_notes = load_notes()  # Загружаем все заметки для списков категорий и тегов
+    all_notes = load_notes()
     categories = sorted(set(n['category'] for n in all_notes if n.get('category')))
     all_tags = set()
     for note in all_notes:
         all_tags.update(note.get('tags', []))
     
-    # Преобразование даты и времени
     for note in notes:
         note['created_at'] = format_datetime(note['created_at'])
         if note.get('updated_at'):
@@ -99,6 +90,7 @@ def add_note():
     
     notes.append(note)
     save_notes(notes)
+    
     return redirect(url_for('index'))
 
 @app.route('/edit_note/<int:note_id>', methods=['POST'])
@@ -159,7 +151,6 @@ def import_notes():
             new_notes = json.loads(file.read().decode('utf-8'))
             current_notes = load_notes()
             
-            # Обновляем ID для новых заметок
             max_id = max((n['id'] for n in current_notes), default=-1)
             for note in new_notes:
                 max_id += 1
