@@ -1,16 +1,21 @@
 MIT License
 
-Copyright (c) 2024 asp2peaK
+Copyright (c) 2024 asp2peaK (https://github.com/asp2peaK)
+NoteMe - Modern Note-Taking Application
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This software and associated documentation files (the "Software") are protected by copyright law.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Permission is granted to:
+1. View and study the source code
+2. Use the software for personal, non-commercial purposes
+3. Fork and modify the code for personal use
+4. Share modifications under the same license terms
+
+The following are explicitly prohibited:
+1. Commercial use of the Software
+2. Distribution of the Software or its derivatives without proper attribution
+3. Claiming the Software as your own work
+4. Removing or modifying the copyright notice
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -19,3 +24,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+NOTE: This project is for educational purposes only.
