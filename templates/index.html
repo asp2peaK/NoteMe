@@ -62,28 +62,34 @@
     {% for note in notes %}
     <div class="note {% if note.get('archived', False) %}archived{% endif %}">
         <h3>{{ note.title }}</h3>
-        {% if note.category and note.category.strip() %}
+        {%- if note.category and note.category.strip() %}
         <div class="category">{{ note.category }}</div>
-        {% endif %}
-        {% for tag in note.get('tags', []) %}
-        <span class="tag">#{{ tag }}</span>
-        {% endfor %}
+        {%- endif %}
+        {%- if note.get('tags', []) %}
+        <div class="tags">
+            {%- for tag in note.get('tags', []) %}
+            <span class="tag">#{{ tag }}</span>
+            {%- endfor %}
+        </div>
+        {%- endif %}
         <div class="note-content">
-            {{ note.content }}
+            {{- note.content|markdown|safe -}}
         </div>
         <div class="note-meta">
-            {{ note.created_at }}
-            {% if note.get('updated_at') %}
-            · modified: {{ note.updated_at }}
-            {% endif %}
+            {{- note.created_at|format_datetime -}}
+            {%- if note.get('updated_at') %}
+            · modified: {{ note.updated_at|format_datetime -}}
+            {%- endif %}
         </div>
         <div class="note-buttons">
             <button onclick="editNote(this)" 
-                    data-id="{{ note.id }}"
-                    data-title="{{ note.title|tojson|safe }}"
-                    data-content="{{ note.content|tojson|safe }}"
-                    data-category="{{ note.category|tojson|safe }}"
-                    title="Edit">✎</button>
+                    data-note-id="{{ note.id }}"
+                    data-title="{{ note.title }}"
+                    data-content="{{ note.content }}"
+                    data-category="{{ note.category }}"
+                    data-tags="{{ note.tags|tojson|safe }}">
+                <span title="Edit">✎</span>
+            </button>
             <form action="{{ url_for('toggle_archive', note_id=note.id) }}" method="post" style="display: inline;">
                 <button type="submit" title="{{ 'Unarchive' if note.get('archived', False) else 'Archive' }}">
                     {{ '📤' if note.get('archived', False) else '📥' }}
@@ -98,15 +104,29 @@
 
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h3>Edit Note</h3>
+                <span class="close">&times;</span>
+            </div>
             <form id="editForm" method="post">
-                <input type="text" name="title" id="editTitle" required>
-                <textarea name="content" id="editContent" required></textarea>
-                <input type="text" name="category" id="editCategory" list="categories">
-                <div class="markdown-help">
-                    **bold**, *italic*, # Heading, - list
+                <div class="input-group">
+                    <label for="editTitle">Title</label>
+                    <input type="text" name="title" id="editTitle" required>
                 </div>
-                <button type="submit">Save</button>
+                <div class="input-group">
+                    <label for="editCategory">Category</label>
+                    <input type="text" name="category" id="editCategory" list="categories">
+                </div>
+                <div class="input-group">
+                    <label for="editContent">Content</label>
+                    <textarea name="content" id="editContent" required></textarea>
+                </div>
+                <div class="markdown-help">
+                    Markdown supported: **bold**, *italic*, # Heading, - list
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="save-btn">Save</button>
+                </div>
             </form>
         </div>
     </div>
