@@ -55,12 +55,6 @@ python app.py
 
 ## Development Notes
 
-This is a development version. For production use:
-1. Use a production WSGI server (e.g., Gunicorn)
-2. Set up proper data storage (e.g., SQLite or PostgreSQL)
-3. Add user authentication
-4. Configure proper security headers
-
 Some potential improvements that could be made:
 - Implement user authentication system
 - Switch to a proper database (SQLite/PostgreSQL)
